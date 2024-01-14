@@ -1,0 +1,29 @@
+@import './base.css';
+
+html {
+  scroll-behavior: smooth;
+}
+body{
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+  background-color: #FAFCFD;
+}
+
+header{
+  width: 100%;
+}
+
+
