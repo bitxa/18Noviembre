@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
 export default defineComponent({
@@ -9,13 +9,29 @@ export default defineComponent({
     },
 
     setup() {
-        const isMenuOpen = ref(true);
+        const isMenuOpen = ref(false);
+
+        const updateMenuDisplay = () => {
+            const menu = document.querySelector('.menu') as HTMLElement;
+            if (window.innerWidth <= 600) {
+                menu.style.display = isMenuOpen.value ? 'flex' : 'none';
+            } else {
+                menu.style.display = 'flex';
+            }
+        };
 
         function toggleMenu() {
             isMenuOpen.value = !isMenuOpen.value;
+            updateMenuDisplay();
         }
 
-        return { isMenuOpen, toggleMenu };
+        window.addEventListener('resize', updateMenuDisplay);
+
+        onMounted(() => {
+            updateMenuDisplay();
+        });
+
+        return { toggleMenu };
     }
 });
 </script>
@@ -36,7 +52,7 @@ export default defineComponent({
             </div>
 
         </div>
-        <div class="menu" v-show="isMenuOpen">
+        <div class="menu">
             <div class="menu-item">
                 <RouterLink to="/inicio" active-class="active">Inicio</RouterLink>
             </div>
@@ -155,6 +171,7 @@ nav {
 }
 
 .hamburger {
+    display: none;
     cursor: pointer;
     background: none;
     border: none;
@@ -170,6 +187,11 @@ nav {
     margin: 0;
 }
 
+@media (min-width: 601px) {
+    .hamburger {
+        display: none;
+    }
+}
 
 @media (max-width: 600px) {
     .header-info {
@@ -220,5 +242,6 @@ nav {
     .school-name h2 {
         text-align: center;
     }
+
 }
 </style>
