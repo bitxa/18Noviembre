@@ -23,17 +23,13 @@ export default defineComponent({
     }
 
     onMounted(async () => {
-      const imageModules = import.meta.glob('/public/images/gallery/*.(png|jpg|jpeg|svg)');
-      /* @vite-ignore */
-      const importPromises = Object.entries(imageModules).map(async ([path, importer]) => {
-        const module = await importImage(path);
-        return {
-          path,
-          image: module.default
-        };
-      });
+      const gallery = Object.values(import.meta.glob('@images/gallery/*.{png,jpg,jpeg,svg}', { eager: true, as: 'url' }));
 
-      items.value = await Promise.all(importPromises);
+      items.value = gallery.map((image, index) => ({
+        path: `Image ${index + 1}`,
+        image: image
+      }));
+
     });
 
     return { items };
