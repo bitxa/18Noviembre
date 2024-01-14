@@ -1,10 +1,91 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
+import emailjs from 'emailjs-com';
+
+// Declare the grecaptcha object
+declare global {
+    interface Window {
+        grecaptcha: any;
+    }
+}
+
 export default defineComponent({
     name: 'ContactUs',
 
+    mounted() {
+        // Dynamically load the reCAPTCHA script
+        const script = document.createElement('script');
+        script.src = 'https://www.google.com/recaptcha/api.js';
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+    },
+
     setup() {
-        return;
+        const snackbar = ref(false);
+        const snackbarText = 'Tú mensaje se ha anviado exitosamente! Espera nuestra respuesta.';
+
+
+        const formInputs = {
+            user_name: ref(''),
+            user_lastname: ref(''),
+            user_email: ref(''),
+            message: ref(''),
+        };
+
+        const sendEmail = async (e: Event) => {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Ensure grecaptcha is loaded
+            if (typeof window.grecaptcha === 'undefined') {
+                alert("reCAPTCHA not loaded");
+                return;
+            }
+
+            const recaptchaResponse = window.grecaptcha.getResponse();
+
+            if (recaptchaResponse === "") {
+                alert("Por favor completa el reCAPTCHA");
+                return;
+            }
+
+            emailjs.init("FG9-ffs5-z62Bo_jH"); // Replace with your EmailJS user ID
+
+            try {
+                await emailjs.send("service_669svz6", "template_39xt3ia", {
+                    nombre: formInputs.user_name.value,
+                    apellido: formInputs.user_lastname.value,
+                    email: formInputs.user_email.value,
+                    mensaje: formInputs.message.value,
+                    from_name: formInputs.user_name.value,
+                    reply_to: formInputs.user_email.value,
+                    "g-recaptcha-response": recaptchaResponse // Include the reCAPTCHA response
+                });
+
+
+                snackbar.value = true;
+
+                formInputs.user_name.value = '';
+                formInputs.user_lastname.value = '';
+                formInputs.user_email.value = '';
+                formInputs.message.value = '';
+
+                // Reset reCAPTCHA
+                if (window.grecaptcha) {
+                    window.grecaptcha.reset();
+                }
+            } catch (error) {
+                snackbar.value = false;
+                alert(error);
+            }
+        };
+
+        return {
+            ...formInputs,
+            sendEmail,
+            snackbar,
+            snackbarText
+        };
     }
 });
 </script>
@@ -19,34 +100,48 @@ export default defineComponent({
         </div>
 
         <div class="right">
-            <form class="contact-form">
+            <form class="contact-form" @submit.prevent="sendEmail">
                 <div class="name-input">
                     <h5>Nombres</h5>
-                    <input class="name" type="text" placeholder="">
+                    <input v-model="user_name" class="name" type="text" placeholder="">
                 </div>
 
                 <div class="lastname-input">
                     <h5>Apellidos</h5>
-                    <input class="lastname" type="text" placeholder="">
+                    <input v-model="user_lastname" class="lastname" type="text" placeholder="">
                 </div>
 
                 <div class="email-input">
                     <h5>Correo electrónico</h5>
-                    <input class="email" type="email" placeholder="">
+                    <input v-model="user_email" class="email" type="email" placeholder="">
                 </div>
 
                 <div class="message-input">
                     <h5>¿En qué podemos ayudarte?</h5>
-                    <textarea class="message" placeholder=""></textarea>
+                    <textarea v-model="message" class="message" placeholder=""></textarea>
+                </div>
+
+                <div id="emailjs-recaptcha" class="g-recaptcha" data-sitekey="6LdM5VApAAAAAGR--TCjMz0UoF9yLpiRAmRGuovI">
                 </div>
 
                 <div class="actions">
-                    <button class="send" type="submit">Enviar</button>
+                    <button class="send" type="submit" @click="snackbar = true">Enviar</button>
                 </div>
             </form>
         </div>
     </div>
+
+    <v-snackbar v-model="snackbar" :timeout="5000">
+        {{ snackbarText }}
+
+        <template v-slot:actions>
+            <v-btn color="green" variant="elevated" @click="snackbar = false">
+                Cerrar
+            </v-btn>
+        </template>
+    </v-snackbar>
 </template>
+
 <style scoped>
 .contact-us {
     width: 100%;

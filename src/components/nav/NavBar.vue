@@ -9,7 +9,7 @@ export default defineComponent({
     },
 
     setup() {
-        const isMenuOpen = ref(true);
+        const isMenuOpen = ref(false);
 
         function toggleMenu() {
             isMenuOpen.value = !isMenuOpen.value;
@@ -162,6 +162,7 @@ nav {
     width: auto;
     font-size: 1rem;
     background-color: #312f24;
+    color: #FDFDFD;
     padding: 2vh;
     padding-top: 0.7vh;
     padding-bottom: 0.7vh;

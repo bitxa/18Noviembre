@@ -78,9 +78,10 @@ export default defineComponent({
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    background-image: url('/images/footer.png');
     width: 100%;
     min-height: 100vh;
+    background-image: url('/images/footer.png');
+ 
     background-position: 100% 100%;
     background-size: cover;
     background-repeat: no-repeat;
