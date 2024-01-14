@@ -9,7 +9,7 @@ export default defineComponent({
     },
 
     setup() {
-        const isMenuOpen = ref(false);
+        const isMenuOpen = ref(true);
 
         function toggleMenu() {
             isMenuOpen.value = !isMenuOpen.value;
