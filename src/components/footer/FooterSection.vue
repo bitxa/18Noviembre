@@ -34,40 +34,41 @@ export default defineComponent({
                     rel="noopener noreferrer">
                     <font-awesome-icon :icon="['fab', 'twitter']"></font-awesome-icon></a>
                 <a href="mailto:escuela18denoviembre@hotmail.com">
-                    <font-awesome-icon
-                        :icon="['fa', 'envelope']"></font-awesome-icon></a>
+                    <font-awesome-icon :icon="['fa', 'envelope']"></font-awesome-icon></a>
             </div>
             <div class="navigation">
                 <div class="menu">
                     <div class="menu-item">
-                        <RouterLink to="/inicio">Inicio</RouterLink>
-                    </div>
-                    <div class="menu-item">
-                        <RouterLink to="/matriculas">Matrículas</RouterLink>
+                        <RouterLink to="/inicio" active-class="active">Inicio</RouterLink>
                     </div>
 
                     <div class="menu-item">
-                        <RouterLink to="/facilities">Facilidades</RouterLink>
+                        <RouterLink to="/matriculas" active-class="active">Matrículas</RouterLink>
                     </div>
 
                     <div class="menu-item">
-                        <RouterLink to="/galeria">Galeria</RouterLink>
+                        <RouterLink to="/historia" active-class="active">Reseña histórica</RouterLink>
                     </div>
 
                     <div class="menu-item">
-                        <RouterLink to="/news">Eventos y noticias</RouterLink>
+                        <RouterLink to="/simbolos" active-class="active">Símbolos institucionales</RouterLink>
                     </div>
 
                     <div class="menu-item">
-                        <RouterLink to="/conoce">Conócenos</RouterLink>
+                        <RouterLink to="/conoce" active-class="active">Conócenos</RouterLink>
                     </div>
+
+                    <div class="menu-item">
+                        <RouterLink to="/galeria" active-class="active">Galeria</RouterLink>
+                    </div>
+
                 </div>
+
             </div>
             <span id="web-info">
                 <p>© 2023 UTPL</p>
             </span>
         </div>
-        <ExtraInfo />
     </footer>
 </template>
 
@@ -81,7 +82,7 @@ export default defineComponent({
     width: 100%;
     min-height: 100vh;
     background-image: url('/images/footer.png');
- 
+
     background-position: 100% 100%;
     background-size: cover;
     background-repeat: no-repeat;

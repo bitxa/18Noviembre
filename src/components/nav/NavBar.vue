@@ -53,29 +53,29 @@ export default defineComponent({
 
         </div>
         <div class="menu">
-            <div class="menu-item">
-                <RouterLink to="/inicio" active-class="active">Inicio</RouterLink>
-            </div>
+                <div class="menu-item">
+                    <RouterLink to="/inicio" active-class="active">Inicio</RouterLink>
+                </div>
 
-            <div class="menu-item">
-                <RouterLink to="/matriculas" active-class="active">Matrículas</RouterLink>
-            </div>
+                <div class="menu-item">
+                    <RouterLink to="/matriculas" active-class="active">Matrículas</RouterLink>
+                </div>
 
-            <div class="menu-item">
-                <RouterLink to="/historia" active-class="active">Reseña histórica</RouterLink>
-            </div>
+                <div class="menu-item">
+                    <RouterLink to="/historia" active-class="active">Reseña histórica</RouterLink>
+                </div>
 
-            <div class="menu-item">
-                <RouterLink to="/simbolos" active-class="active">Símbolos institucionales</RouterLink>
-            </div>
+                <div class="menu-item">
+                    <RouterLink to="/simbolos" active-class="active">Símbolos institucionales</RouterLink>
+                </div>
 
-            <div class="menu-item">
-                <RouterLink to="/conoce" active-class="active">Conócenos</RouterLink>
-            </div>
+                <div class="menu-item">
+                    <RouterLink to="/conoce" active-class="active">Conócenos</RouterLink>
+                </div>
 
-            <div class="menu-item">
-                <RouterLink to="/galeria" active-class="active">Galeria</RouterLink>
-            </div>
+                <div class="menu-item">
+                    <RouterLink to="/galeria" active-class="active">Galeria</RouterLink>
+                </div>
 
         </div>
     </nav>
